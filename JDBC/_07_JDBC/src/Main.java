@@ -28,8 +28,14 @@ public class Main {
                 case "2":
                     objCoderController.create();
                 break;
+                case "3":
+                    objCoderController.update();
+                break;
                 case "4":
                     objCoderController.delete();
+                break;
+                case "5":
+                
                 break;
             }
         }while (!option.equals("6"));
