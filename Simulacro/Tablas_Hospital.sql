@@ -34,8 +34,9 @@ CREATE TABLE cita(
 INSERT INTO especialidad (nombre,descripcion) VALUES ("Ortopedista", "especialista en arreglo de rodillas"), ("Oncologo", "infantil");
 SELECT * FROM especialidad;
 
-INSERT INTO medico (nombre,apellidos) VALUES ("Cristian","Manco"),("Manuela","Restrepo"),("Luisa","Cardenas");
+INSERT INTO medico (nombre,apellidos,id_especialidad) VALUES ("Cristian","Manco",1),("Manuela","Restrepo",2),("Luisa","Cardenas",1);
 SELECT * FROM medico;
+DELETE FROM medico WHERE medico.id=3 ;
 
 INSERT INTO paciente (nombre,apellidos,fecha_nacimiento,documento_identidad) 
 VALUES ("Juan Camilo","Chaparro Castellanos","1996-02-10","1039466438"),("Luciana","Montoya","2010-09-28","1020405020");
