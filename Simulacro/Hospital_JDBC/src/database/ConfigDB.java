@@ -24,7 +24,7 @@ public class ConfigDB {
             JOptionPane.showMessageDialog(null,"Conexion establecida correctamente");
 
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Error, no se pudo establecer la conexion con la base de datos");
+            JOptionPane.showMessageDialog(null,"Error, no se pudo establecer la conexion con la base de datos"+e.getMessage());
         }catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null,"Error >>> driver no instalado");
         }
