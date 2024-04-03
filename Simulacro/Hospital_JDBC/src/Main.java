@@ -42,7 +42,10 @@ public class Main {
                         switch (option1){
                             case "1":
                                 EspecialidadController.getAll();
-                                break;
+                            break;
+                            case "2":
+                                EspecialidadController.create();
+                            break;
                         }
                     }while (!option1.equals("6"));
                 break;
@@ -55,7 +58,7 @@ public class Main {
                     2.Insertar nuevo Medico
                     3.Actualizar Medico
                     4.Eliminar Medico
-                    5.Obtener Medico por nombre
+                    5.Obtener Medico por especialidad
                     6.Salir
                     Seleccione una opcion: 
                     """);
@@ -75,7 +78,7 @@ public class Main {
                     2.Insertar nuevo paciente
                     3.Actualizar paciente
                     4.Eliminar paciente
-                    5.Obtener paciente por nombre
+                    5.Obtener paciente por documento de identidad
                     6.Salir
                     Seleccione una opcion: 
                     """);
@@ -91,11 +94,11 @@ public class Main {
                     do {
                         option4= JOptionPane.showInputDialog("""
                     Menu: \n
-                    1.Mostrar pacientes
-                    2.Insertar nuevo paciente
-                    3.Actualizar paciente
-                    4.Eliminar paciente
-                    5.Obtener paciente por nombre
+                    1.Mostrar citas
+                    2.Insertar nueva cita
+                    3.Actualizar cita
+                    4.Eliminar cita
+                    5.Obtener cita por fecha
                     6.Salir
                     Seleccione una opcion: 
                     """);

@@ -15,7 +15,24 @@ import java.util.List;
 public class EspecialidadModel implements CRUD {
     @Override
     public Object create(Object obj) {
-        return null;
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspecialidad = (Especialidad) obj;
+        try {
+            String sql ="INSERT INTO especialidad (nombre,descripcion) VALUES (?,?);";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            objPrepare.setString(1,objEspecialidad.getNombre());
+            objPrepare.setString(2,objEspecialidad.getDescripcion());
+            objPrepare.execute();
+            ResultSet objResult = objPrepare.getGeneratedKeys();
+            while (objResult.next()){
+                objEspecialidad.setId(objResult.getInt("id"));
+            }
+            JOptionPane.showMessageDialog(null,"Especialidad creada satisfactoriamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error creando: "+e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objEspecialidad;
     }
 
     @Override
