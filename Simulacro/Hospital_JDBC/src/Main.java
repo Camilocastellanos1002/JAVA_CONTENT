@@ -1,5 +1,7 @@
+import controller.CitaController;
 import controller.EspecialidadController;
 import controller.MedicoController;
+import controller.PacienteController;
 import database.ConfigDB;
 import entity.Especialidad;
 
@@ -64,6 +66,47 @@ public class Main {
                         }
                     }while (!option2.equals("6"));
                 break;
+                case "3":
+                    String option3="";
+                    do {
+                        option3= JOptionPane.showInputDialog("""
+                    Menu: \n
+                    1.Mostrar pacientes
+                    2.Insertar nuevo paciente
+                    3.Actualizar paciente
+                    4.Eliminar paciente
+                    5.Obtener paciente por nombre
+                    6.Salir
+                    Seleccione una opcion: 
+                    """);
+                        switch (option3){
+                            case "1":
+                                PacienteController.getAll();
+                                break;
+                        }
+                    }while (!option3.equals("6"));
+                break;
+                case "4":
+                    String option4="";
+                    do {
+                        option4= JOptionPane.showInputDialog("""
+                    Menu: \n
+                    1.Mostrar pacientes
+                    2.Insertar nuevo paciente
+                    3.Actualizar paciente
+                    4.Eliminar paciente
+                    5.Obtener paciente por nombre
+                    6.Salir
+                    Seleccione una opcion: 
+                    """);
+                        switch (option4){
+                            case "1":
+                                CitaController.getAll();
+                                break;
+                        }
+                    }while (!option4.equals("6"));
+                break;
+
             }
         }while (!option.equals("5"));
     }
