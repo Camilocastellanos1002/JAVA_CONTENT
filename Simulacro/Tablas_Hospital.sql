@@ -2,28 +2,29 @@
 CREATE TABLE especialidad(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR (30) NOT NULL,
-    descripcion VARCHAR (40)
+    descripcion TEXT
 );
 
 CREATE TABLE medico(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR (15) NOT NULL,
     apellidos VARCHAR (20) NOT NULL,
-    id_especialidad INT (10),
-    CONSTRAINT fk_id_especialidad FOREIGN KEY (id_especialidad) REFERENCES especialidad (id) ON DELETE CASCADE
+    id_especialidad INT,
+    CONSTRAINT fk_id_especialidad FOREIGN KEY (id_especialidad) 
+    REFERENCES especialidad (id) ON DELETE CASCADE
 );
 CREATE TABLE paciente(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR (15) NOT NULL,
+    nombre VARCHAR (20) NOT NULL,
     apellidos VARCHAR (20) NOT NULL,
-    fecha_nacimiento DATE,
-    documento_identidad VARCHAR (10) NOT NULL
+    fecha_nacimiento DATE NOT NULL,
+    documento_identidad VARCHAR (10) UNIQUE NOT NULL
 );
 CREATE TABLE cita(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    id_paciente INT (10),
+    id_paciente INT,
     CONSTRAINT fk_id_paciente FOREIGN KEY (id_paciente) REFERENCES paciente (id) ON DELETE CASCADE,
-    id_medico INT (10),
+    id_medico INT,
     CONSTRAINT fk_id_medico FOREIGN KEY (id_medico) REFERENCES medico (id) ON DELETE CASCADE,
     fecha_cita DATE NOT NULL,
     hora_cita TIME NOT NULL,
