@@ -4,36 +4,45 @@ import database.CRUD;
 import database.ConfigDB;
 import entity.Cita;
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CitaModel implements CRUD {
     @Override
     public Object create(Object obj) {
+        //crear conexion
         Connection objConnection = ConfigDB.openConnection();
+        //casting del objeto
         Cita objCita = (Cita) obj;
+        //try
         try {
-            String sql = "INSERT INTO paciente (nombre,apellidos,fecha_nacimiento,documento_identidad) VALUES (?,?,?,?);";
+            //sentencia sql
+            String sql = "INSERT INTO cita (fecha_cita,hora_cita,motivo,id_paciente,id_medico) VALUES (?,?,?,?,?);";
+            //preparar statement y devolucion de llaves
             PreparedStatement objPrepare = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-            objPrepare.setInt(1,objCita.getId());
-            objPrepare.setInt(2,objCita.getId_paciente());
+            //dar valores a  ?
+            objPrepare.setDate(1, Date.valueOf(objCita.getFecha_cita()));
+            objPrepare.setTime(2,Time.valueOf(objCita.getHora_cita()));
+            objPrepare.setString(3,objCita.getMotivo());
+            objPrepare.setInt(4,objCita.getId_paciente());
             objPrepare.setInt(3,objCita.getId_medico());
-            objPrepare.setDate(4,objCita.getFecha_cita());
-            objPrepare.setTime(5,objCita.getHora_cita());
-            objPrepare.setString(6,objCita.getMotivo());
+            //ejecutar query
             objPrepare.execute();
+            //obtener llaves generadas
             ResultSet objResult = objPrepare.getGeneratedKeys();
+            //mientras haya un registro
             while (objResult.next()){
-                objCita.setId(objResult.getInt("id"));
+                //agregar id
+                objCita.setId(objResult.getInt(1));
             }
             JOptionPane.showMessageDialog(null,"cita creada");
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null,"Error creando cita: "+e.getMessage());
         }
+        //cerrar conexion
+        ConfigDB.closeConnection();
+        //retornar objeto cita
         return objCita;
     }
 
@@ -54,6 +63,7 @@ public class CitaModel implements CRUD {
 
     @Override
     public List<Object> findAll() {
+        /*
         List<Object> listaCita = new ArrayList<>();
         Connection objConnection = ConfigDB.openConnection();
         try {
@@ -74,6 +84,7 @@ public class CitaModel implements CRUD {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"Error: "+e.getMessage());
         }
-        return listaCita;
+        return listaCita;*/
+        return null;
     }
 }

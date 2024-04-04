@@ -78,10 +78,10 @@ public class Main {
                                 MedicoController.create();
                             break;
                             case "3":
-
+                                MedicoController.update();
                             break;
                             case "4":
-
+                                MedicoController.delete();
                             break;
                             case "5":
 
@@ -110,10 +110,10 @@ public class Main {
                                 PacienteController.create();
                             break;
                             case "3":
-
+                                PacienteController.update();
                             break;
                             case "4":
-
+                                PacienteController.delete();
                             break;
                             case "5":
 

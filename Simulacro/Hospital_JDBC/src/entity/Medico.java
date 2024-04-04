@@ -64,9 +64,9 @@ public class Medico {
 
     @Override
     public String toString() {
-        return "Medico: \n{" +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\''+
-                ", especialidad: "+this.objEspecialidad.getNombre();
+        return "Medico \n" +
+                ", nombre: '" + nombre + '\'' +
+                ", apellidos: '" + apellidos + '\'' +
+                ", especialidad: " + objEspecialidad.getDescripcion();
     }
 }

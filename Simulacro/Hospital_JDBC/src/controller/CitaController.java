@@ -1,15 +1,18 @@
 package controller;
 
 import entity.Cita;
+import entity.Medico;
 import entity.Paciente;
 import model.CitaModel;
 import model.PacienteModel;
+import utils.Utils;
 
 import javax.swing.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class CitaController {
     public static void getAll(){
@@ -23,34 +26,40 @@ public class CitaController {
     }
 
     public static void create(){
-        CitaModel objCitaModel = new CitaModel();
-        int id_pac = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese id del paciente: "));
-        int id_med = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese id del medico: "));
+
+        //pedir valores
+        String fecha= JOptionPane.showInputDialog(null,"Ingrese la fecha de la cita (YYYY-MM-DD): ");
+        String tiempo = JOptionPane.showInputDialog(null,"Ingrese la hora de la cita: (HH:mm:ss): ");
         String motivo = JOptionPane.showInputDialog(null,"Ingrese motivo de la cita: ");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        java.sql.Date fechaConvertida = null;
-        try {
-            fechaConvertida = (Date) dateFormat.parse(JOptionPane.showInputDialog(null,"Ingrese la fecha de nacimiento del paciente (AAAA-MM-DD): "));
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null,"Error al recibir fecha: "+e.getMessage());
-        }
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        java.sql.Time horaConvertida = null;
-        try {
-            horaConvertida = (Time) timeFormat.parse(JOptionPane.showInputDialog(null,"Ingrese la hora de la cita: (HH:mm): "));
-        }catch (ParseException e){
-            JOptionPane.showMessageDialog(null,"Error al recibir hora: "+e.getMessage());
-        }
 
-        Cita objCita = new Cita();
-        objCita.setId_paciente(id_pac);
-        objCita.setId_medico(id_med);
-        objCita.setMotivo(motivo);
-        objCita.setFecha_cita(fechaConvertida);
-        objCita.setHora_cita(horaConvertida);
+        //llamar instancia de la listas de pacientes y medicos
+        Object[] optionPacientes = Utils.listToArray(PacienteController.instancePacienteModel().findAll());
+        Object[] optionMedicos = Utils.listToArray(PacienteController.instancePacienteModel().findAll());
 
-        objCita = (Cita) objCitaModel.create(objCita);
-
-        JOptionPane.showMessageDialog(null,objCita.toString());
+        //selector de pacientes
+        Paciente pacienteSeleccionado = (Paciente) JOptionPane.showInputDialog(
+                null,
+                "Seleccione el paciente: ",
+                "",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                optionPacientes,
+                optionPacientes[0]
+        );
+        //selector de medicos
+        Medico medicoSeleccionado = (Medico) JOptionPane.showInputDialog(
+                null,
+                "Seleccione el medico asignado a la cita: ",
+                "",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                optionMedicos,
+                optionMedicos[0]
+        );
+        //creando la instancia de la cita
+        instanciaModeloCita().create(new Cita(pacienteSeleccionado.getId(),medicoSeleccionado.getId(),fecha,tiempo,motivo,medicoSeleccionado,pacienteSeleccionado));
+    }
+    public static CitaModel instanciaModeloCita(){
+        return new CitaModel();
     }
 }

@@ -8,20 +8,24 @@ public class Cita {
     private int id_paciente;
 
     private int id_medico;
-    private Date fecha_cita;
-    private Time hora_cita;
+    private String fecha_cita;
+    private String hora_cita;
     private String motivo;
+
+    private Medico objMedico;
+    private Paciente objPaciente;
 
     public Cita() {
     }
 
-    public Cita(int id, int id_paciente, int id_medico, Date fecha_cita, Time hora_cita, String motivo) {
-        this.id = id;
+    public Cita(int id_paciente, int id_medico, String fecha_cita, String hora_cita, String motivo, Medico objMedico, Paciente objPaciente) {
         this.id_paciente = id_paciente;
         this.id_medico = id_medico;
         this.fecha_cita = fecha_cita;
         this.hora_cita = hora_cita;
         this.motivo = motivo;
+        this.objMedico = objMedico;
+        this.objPaciente = objPaciente;
     }
 
     public int getId() {
@@ -48,19 +52,19 @@ public class Cita {
         this.id_medico = id_medico;
     }
 
-    public java.sql.Date getFecha_cita() {
-        return (java.sql.Date) fecha_cita;
+    public String getFecha_cita() {
+        return fecha_cita;
     }
 
-    public void setFecha_cita(Date fecha_cita) {
+    public void setFecha_cita(String fecha_cita) {
         this.fecha_cita = fecha_cita;
     }
 
-    public Time getHora_cita() {
+    public String getHora_cita() {
         return hora_cita;
     }
 
-    public void setHora_cita(Time hora_cita) {
+    public void setHora_cita(String hora_cita) {
         this.hora_cita = hora_cita;
     }
 
@@ -72,16 +76,30 @@ public class Cita {
         this.motivo = motivo;
     }
 
-    @Override
-    public String toString() {
-        return "Cita: \n{" +
-                "id=" + id +
-                ", id_paciente=" + id_paciente +
-                ", id_medico=" + id_medico +
-                ", fecha_cita=" + fecha_cita +
-                ", hora_cita=" + hora_cita +
-                ", motivo='" + motivo + '\'' +
-                '}';
+    public Medico getObjMedico() {
+        return objMedico;
     }
 
+    public void setObjMedico(Medico objMedico) {
+        this.objMedico = objMedico;
+    }
+
+    public Paciente getObjPaciente() {
+        return objPaciente;
+    }
+
+    public void setObjPaciente(Paciente objPaciente) {
+        this.objPaciente = objPaciente;
+    }
+
+    @Override
+    public String toString() {
+        return "Cita{" +
+                "fecha_cita='" + fecha_cita + '\'' +
+                ", hora_cita='" + hora_cita + '\'' +
+                ", motivo='" + motivo + '\'' +
+                ", objMedico=" + objMedico.getNombre() +
+                ", objPaciente=" + objPaciente.getNombre() +
+                '}';
+    }
 }

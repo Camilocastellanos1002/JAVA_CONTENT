@@ -12,8 +12,7 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(int id, String nombre, String apellidos, String fecha_nacimiento, String documento_identidad) {
-        this.id = id;
+    public Paciente(String nombre, String apellidos, String fecha_nacimiento, String documento_identidad) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fecha_nacimiento = fecha_nacimiento;
@@ -62,12 +61,9 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "Paciente: \n{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", fecha_nacimiento=" + fecha_nacimiento +
-                ", documento_identidad='" + documento_identidad + '\'' +
-                '}';
+        return "Paciente: \n"+
+                "nombre y apellidos=" + nombre + '\'' + apellidos + '\n' +
+                "fecha_nacimiento=" + fecha_nacimiento + '\n'+
+                "documento_identidad='" + documento_identidad + '\n';
     }
 }
