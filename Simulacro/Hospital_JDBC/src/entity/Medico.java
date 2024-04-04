@@ -5,16 +5,21 @@ public class Medico {
     private String nombre;
     private String apellidos;
 
+    //forma de inyectar un objeto de otra entidad para generar la llave foranea
     private int id_especialidad;
+    //inyeccion de dependencias
+    private Especialidad objEspecialidad;
+
 
     public Medico() {
     }
 
-    public Medico(int id, String nombre, String apellidos, int id_especialidad) {
-        this.id = id;
+    public Medico(String nombre, String apellidos, int id_especialidad, Especialidad objEspecialidad) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.id_especialidad = id_especialidad;
+        this.objEspecialidad = objEspecialidad;
+
     }
 
     public int getId() {
@@ -49,13 +54,19 @@ public class Medico {
         this.id_especialidad = id_especialidad;
     }
 
+    public Especialidad getObjEspecialidad() {
+        return objEspecialidad;
+    }
+
+    public void setObjEspecialidad(Especialidad objEspecialidad) {
+        this.objEspecialidad = objEspecialidad;
+    }
+
     @Override
     public String toString() {
         return "Medico: \n{" +
-                "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", id_especialidad=" + id_especialidad +
-                '}';
+                ", apellidos='" + apellidos + '\''+
+                ", especialidad: "+this.objEspecialidad.getNombre();
     }
 }

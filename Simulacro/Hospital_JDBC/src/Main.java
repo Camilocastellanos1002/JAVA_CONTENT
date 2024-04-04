@@ -20,7 +20,7 @@ public class Main {
                     1.Menu Especialidades
                     2.Menu Medico
                     3.Menu Paciente
-                    4.Menu Cita
+                    4.Menu Cita             
                     5.Salir
                     Seleccione una opcion:
                     """);

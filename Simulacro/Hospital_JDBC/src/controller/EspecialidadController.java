@@ -1,58 +1,64 @@
 package controller;
 
+import utils.Utils;
 import entity.Especialidad;
 import model.EspecialidadModel;
 
 import javax.swing.*;
+import java.util.List;
 
 public class EspecialidadController {
 
-    public static void getAll(){
-        EspecialidadModel objModel = new EspecialidadModel();
-        String listEspecialidad = "Lista de especialidades: \n";
-        for (Object i: objModel.findAll()){
-            Especialidad objEspecialidad = (Especialidad) i;
-            listEspecialidad+=objEspecialidad.toString()+"\n";
-        }
-        JOptionPane.showMessageDialog(null,listEspecialidad);
-    }
-
     public static void create(){
-        EspecialidadModel objEspecialidadModel = new EspecialidadModel();
+        //1. asignar valores por el usuario
         String nombre =JOptionPane.showInputDialog(null,"Ingrese nombre de la especialidad: \n");
         String descripcion= JOptionPane.showInputDialog(null,"Ingrese la descripcion de la especialidad: \n");
 
+        //metodo que crea el objeto especialidad con los valores
+        instanciarModelo().create(new Especialidad(nombre,descripcion));
+
+    }
+
+    //este metodo permite instanciar el modelo, en vez de estar creando en cada llamado como se muestra en la lineas comentadas
+    public  static EspecialidadModel instanciarModelo(){
+        /*
         Especialidad objEspecialidad = new Especialidad();
         objEspecialidad.setNombre(nombre);
         objEspecialidad.setDescripcion(descripcion);
-
         objEspecialidad = (Especialidad) objEspecialidadModel.create(objEspecialidad);
-
-        JOptionPane.showMessageDialog(null,objEspecialidad.toString());
+        JOptionPane.showMessageDialog(null,objEspecialidad.toString());*/
+        return new EspecialidadModel();
     }
 
-    public static String getAllString(){
-        EspecialidadModel objModel = new EspecialidadModel();
+
+    public static void getAll(){
+        String listEspecialidad = getAllString(instanciarModelo().findAll());
+        JOptionPane.showMessageDialog(null,listEspecialidad);
+    }
+
+
+    public static String getAllString(List<Object> list){
         String listEspecialidad = "Lista de especialidades: \n";
-        for (Object i: objModel.findAll()){
+        for (Object i: list){
             Especialidad objEspecialidad = (Especialidad) i;
             listEspecialidad+=objEspecialidad.toString()+"\n";
         }
         return listEspecialidad;
     }
+
     public static void delete(){
-        EspecialidadModel objEspecialModel = new EspecialidadModel();
-        String listEspecialidades = getAllString();
-        int id =Integer.parseInt(JOptionPane.showInputDialog(null,listEspecialidades+"\nSeleccione el id de la especialidad para eliminar: "));
-        Especialidad objEspecialidad = objEspecialModel.findById(id);
-        if (objEspecialidad == null){
-            JOptionPane.showMessageDialog(null,"Especialidad no encontrada");
-        }else {
-           int confirm = JOptionPane.showConfirmDialog(null,"Estas seguro de eliminar la especialidad: \n"+objEspecialidad.toString());
-            if (confirm ==0){
-                objEspecialModel.delete(objEspecialidad);
-            }
-        }
+        //crear aaraylist de objetos
+        Object[] options = Utils.listToArray(instanciarModelo().findAll());//entregando la creacion de la instancia del modelo
+
+        Especialidad objSelected = (Especialidad) JOptionPane.showInputDialog(null,
+                "Selecione una especialidad para eliminar: ",
+                "",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+        instanciarModelo().delete(objSelected);
     }
 
     public static void getByName(){
@@ -66,21 +72,21 @@ public class EspecialidadController {
     }
 
     public static void update(){
-        EspecialidadModel objEspecialidadModel = new EspecialidadModel();
-        String listEspecialidad = getAllString();
-        int idUpdate= Integer.parseInt(JOptionPane.showInputDialog(null,listEspecialidad+"\nIngrese el id de la especialidad para modificar: "));
+        //1. crear aaraylist de objetos para crear el select
+        Object[] options = Utils.listToArray(instanciarModelo().findAll());//entregando la creacion de la instancia del modelo
+        //2. select
+        Especialidad objSelected = (Especialidad) JOptionPane.showInputDialog(null,
+                "Selecione una especialidad para actualizar: ",
+                "",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+        //3.pedir al usuario el ingreso del nuevo nombre, asignando el valor por defecto en caso de que no ingrese ningun nuevo valor
+        objSelected.setNombre(JOptionPane.showInputDialog(null,"Ingresa el nuevo nombre de la especialidad: ", objSelected.getNombre()));
+        objSelected.setDescripcion(JOptionPane.showInputDialog(null,"Ingrese la nueva descripcion de la especialidad: ",objSelected.getDescripcion()));
 
-        Especialidad objEspecialidad = objEspecialidadModel.findById(idUpdate);
-        if (objEspecialidad == null){
-            JOptionPane.showMessageDialog(null,"Especialidad no encontrada");
-        }else {
-            String nombre = JOptionPane.showInputDialog(null,"Ingrese el nuevo nombre: ",objEspecialidad.getNombre());
-            String descripcion = JOptionPane.showInputDialog(null,"Ingrese la nueva descripcion: ",objEspecialidad.getDescripcion());
-            objEspecialidad.setNombre(nombre);
-            objEspecialidad.setDescripcion(descripcion);
-
-            objEspecialidadModel.update(objEspecialidad);
-        }
-
+        instanciarModelo().update(objSelected);
     }
 }

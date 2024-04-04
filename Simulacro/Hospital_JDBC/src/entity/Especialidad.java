@@ -7,8 +7,7 @@ public class Especialidad {
 
     public Especialidad() {
     }
-    public Especialidad(int id, String nombre, String descripcion) {
-        this.id = id;
+    public Especialidad(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
