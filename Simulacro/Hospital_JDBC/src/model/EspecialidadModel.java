@@ -29,7 +29,7 @@ public class EspecialidadModel implements CRUD {
             }
             JOptionPane.showMessageDialog(null,"Especialidad creada satisfactoriamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Error creando: "+e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error creando especialidad: "+e.getMessage());
         }
         ConfigDB.closeConnection();
         return objEspecialidad;
@@ -37,17 +37,75 @@ public class EspecialidadModel implements CRUD {
 
     @Override
     public boolean update(Object obj) {
-        return false;
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspecialidad = (Especialidad) obj;
+
+        boolean isUpdate = false;
+        try {
+            String sql = "UPDATE especialidad SET nombre = ?,descripcion= ? WHERE id= ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1,objEspecialidad.getNombre());
+            objPrepare.setString(2,objEspecialidad.getDescripcion());
+            objPrepare.setInt(3,objEspecialidad.getId());
+
+            int totalAffectedRow = objPrepare.executeUpdate();
+            if (totalAffectedRow>0){
+                isUpdate = true;
+                JOptionPane.showMessageDialog(null,"Actualizacion generada correctamente");
+            }
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error al actualizar especialidad: "+e.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+        return isUpdate;
     }
 
     @Override
     public boolean delete(Object obj) {
-        return false;
+        Especialidad objEspecialidad = (Especialidad) obj;
+        Connection objConnection = ConfigDB.openConnection();
+        boolean isDelete = false;
+        try {
+            String sql = "DELETE FROM especialidad WHERE id = ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1,objEspecialidad.getId());
+            int totalAffectedRows = objPrepare.executeUpdate();
+            if (totalAffectedRows>0){
+                isDelete = true;
+                JOptionPane.showMessageDialog(null,"Eliminacion generada correctamente");
+            }
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error al eliminar especialidad: "+e.getMessage());
+
+        }
+        ConfigDB.closeConnection();
+        return isDelete;
     }
 
     @Override
-    public Object findById(int id) {
-        return null;
+    public Especialidad findById(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspecialidad = null;
+        try {
+            String sql = "SELECT * FROM especialidad WHERE id=?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1,id);
+            ResultSet objResult = objPrepare.executeQuery();
+            if (objResult.next()){
+                objEspecialidad = new Especialidad();
+                objEspecialidad.setId(objResult.getInt("id"));
+                objEspecialidad.setNombre(objResult.getString("name"));
+                objEspecialidad.setDescripcion(objResult.getString("descripcion"));
+            }
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error al buscar especialidad: "+e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objEspecialidad;
     }
 
     @Override
@@ -74,5 +132,30 @@ public class EspecialidadModel implements CRUD {
 
         ConfigDB.closeConnection();
         return listEspecialidad;
+    }
+    public List<Especialidad> findByName(String name){
+        List<Especialidad> listEspecialidades = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        try {
+            String sql = "SELECT * FROM especialidad WHERE nombre like ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1,"%"+name+"%");
+            ResultSet objResult = objPrepare.executeQuery();
+            while (objResult.next()){
+                Especialidad objEspecialidad =new Especialidad();
+
+                objEspecialidad.setId(objResult.getInt("id"));
+                objEspecialidad.setNombre(objResult.getString("nombre"));
+                objEspecialidad.setDescripcion(objResult.getString("descripcion"));
+
+                listEspecialidades.add(objEspecialidad);
+            }
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error al encontrar especialidad por nombre: "+e.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+        return listEspecialidades;
     }
 }

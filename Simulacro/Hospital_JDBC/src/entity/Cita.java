@@ -48,8 +48,8 @@ public class Cita {
         this.id_medico = id_medico;
     }
 
-    public Date getFecha_cita() {
-        return fecha_cita;
+    public java.sql.Date getFecha_cita() {
+        return (java.sql.Date) fecha_cita;
     }
 
     public void setFecha_cita(Date fecha_cita) {

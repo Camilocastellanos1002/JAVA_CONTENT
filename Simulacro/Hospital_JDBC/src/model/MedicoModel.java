@@ -15,7 +15,25 @@ import java.util.List;
 public class MedicoModel implements CRUD {
     @Override
     public Object create(Object obj) {
-        return null;
+        Connection objConnection = ConfigDB.openConnection();
+        Medico objMedico = (Medico) obj;
+        try {
+            String sql = "INSERT INTO medico (nombre,apellidos,id_especialidad) VALUES (?,?,?);";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            objPrepare.setInt(1,objMedico.getId());
+            objPrepare.setString(2,objMedico.getNombre());
+            objPrepare.setString(3,objMedico.getApellidos());
+            objPrepare.setInt(4,objMedico.getId_especialidad());
+            objPrepare.execute();
+            ResultSet objResult = objPrepare.getGeneratedKeys();
+            while (objResult.next()){
+                objMedico.setId(objResult.getInt("id"));
+            }
+            JOptionPane.showMessageDialog(null,"Medico creado");
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null,"Error Creando medico: "+e.getMessage());
+        }
+        return objMedico;
     }
 
     @Override

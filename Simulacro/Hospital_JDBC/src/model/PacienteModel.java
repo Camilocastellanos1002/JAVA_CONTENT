@@ -3,19 +3,34 @@ package model;
 import database.CRUD;
 import database.ConfigDB;
 import entity.Paciente;
-
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PacienteModel implements CRUD {
     @Override
     public Object create(Object obj) {
-        return null;
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = (Paciente) obj;
+        try {
+            String sql = "INSERT INTO paciente (nombre,apellidos,fecha_nacimiento,documento_identidad) VALUES (?,?,?,?);";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+            objPrepare.setInt(1,objPaciente.getId());
+            objPrepare.setString(2,objPaciente.getNombre());
+            objPrepare.setString(3,objPaciente.getApellidos());
+            objPrepare.setDate(4, Date.valueOf((String)objPaciente.getFecha_nacimiento()));
+            objPrepare.setString(5,objPaciente.getDocumento_identidad());
+            objPrepare.execute();
+            ResultSet objResult = objPrepare.getGeneratedKeys();
+            while (objResult.next()){
+                objPaciente.setId(objResult.getInt("id"));
+            }
+            JOptionPane.showMessageDialog(null,"paciente creado");
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null,"Error creando paciente: "+e.getMessage());
+        }
+        return objPaciente;
     }
 
     @Override
@@ -46,7 +61,7 @@ public class PacienteModel implements CRUD {
                 objPaciente.setId(objResult.getInt("id"));
                 objPaciente.setNombre(objResult.getString("nombre"));
                 objPaciente.setApellidos(objResult.getString("apellidos"));
-                objPaciente.setFecha_nacimiento(objResult.getDate("fecha_nacimiento"));
+                objPaciente.setFecha_nacimiento(objResult.getString("fecha_nacimiento"));
                 objPaciente.setDocumento_identidad(objResult.getString("documento_identidad"));
 
                 listPaciente.add(objPaciente);

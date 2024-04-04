@@ -2,13 +2,12 @@ import controller.CitaController;
 import controller.EspecialidadController;
 import controller.MedicoController;
 import controller.PacienteController;
-import database.ConfigDB;
-import entity.Especialidad;
 
 import javax.swing.*;
+import java.text.ParseException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         /*
         // prueba de conexion con el servidor SQL
         ConfigDB.openConnection();
@@ -46,6 +45,15 @@ public class Main {
                             case "2":
                                 EspecialidadController.create();
                             break;
+                            case "3":
+                                EspecialidadController.update();
+                            break;
+                            case "4":
+                                EspecialidadController.delete();
+                            break;
+                            case "5":
+                                EspecialidadController.getByName();
+                            break;
                         }
                     }while (!option1.equals("6"));
                 break;
@@ -65,7 +73,19 @@ public class Main {
                         switch (option2){
                             case "1":
                                 MedicoController.getAll();
-                                break;
+                            break;
+                            case "2":
+                                MedicoController.create();
+                            break;
+                            case "3":
+
+                            break;
+                            case "4":
+
+                            break;
+                            case "5":
+
+                            break;
                         }
                     }while (!option2.equals("6"));
                 break;
@@ -85,7 +105,19 @@ public class Main {
                         switch (option3){
                             case "1":
                                 PacienteController.getAll();
-                                break;
+                            break;
+                            case "2":
+                                PacienteController.create();
+                            break;
+                            case "3":
+
+                            break;
+                            case "4":
+
+                            break;
+                            case "5":
+
+                            break;
                         }
                     }while (!option3.equals("6"));
                 break;
@@ -105,7 +137,19 @@ public class Main {
                         switch (option4){
                             case "1":
                                 CitaController.getAll();
-                                break;
+                            break;
+                            case "2":
+                                CitaController.create();
+                            break;
+                            case "3":
+
+                            break;
+                            case "4":
+
+                            break;
+                            case "5":
+
+                            break;
                         }
                     }while (!option4.equals("6"));
                 break;
