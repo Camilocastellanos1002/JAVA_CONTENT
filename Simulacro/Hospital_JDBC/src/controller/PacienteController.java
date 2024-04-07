@@ -83,9 +83,9 @@ public class PacienteController {
         String documento = JOptionPane.showInputDialog(null,"Ingrese el documento que desea buscar: ");
         PacienteModel objPacienteM = new PacienteModel();
         String lista= "Coincidencias: \n";
-        /*for (Paciente i: objPacienteM.findByDoc(documento)){
+        for (Paciente i: objPacienteM.findByDoc(documento)){
             lista+=i.toString()+"\n";
-        }*/
+        }
         JOptionPane.showMessageDialog(null,lista);
     }
 
