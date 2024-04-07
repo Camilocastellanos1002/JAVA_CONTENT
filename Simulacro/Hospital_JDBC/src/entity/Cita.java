@@ -94,12 +94,11 @@ public class Cita {
 
     @Override
     public String toString() {
-        return "Cita{" +
+        return "Cita \n" +
                 "fecha_cita='" + fecha_cita + '\'' +
-                ", hora_cita='" + hora_cita + '\'' +
-                ", motivo='" + motivo + '\'' +
-                ", objMedico=" + objMedico.getNombre() +
-                ", objPaciente=" + objPaciente.getNombre() +
-                '}';
+                "hora_cita='" + hora_cita + '\'' +
+                "motivo='" + motivo + '\n' +
+                "Medico= " + objMedico.getNombre() + " " + objMedico.getApellidos() +'\n' +
+                "Paciente= " + objPaciente.getNombre()+ " " + objPaciente.getApellidos();
     }
 }

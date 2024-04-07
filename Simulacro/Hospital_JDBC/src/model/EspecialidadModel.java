@@ -47,9 +47,6 @@ public class EspecialidadModel implements CRUD {
     }
 
 
-
-
-
     @Override
     public boolean update(Object obj) {
         //1.abrir conexion
@@ -120,8 +117,6 @@ public class EspecialidadModel implements CRUD {
         return isDelete;
     }
 
-
-    @Override
     public Especialidad findById(int id) {
         Connection objConnection = ConfigDB.openConnection();
         Especialidad objEspecialidad = null;
@@ -133,7 +128,7 @@ public class EspecialidadModel implements CRUD {
             if (objResult.next()){
                 objEspecialidad = new Especialidad();
                 objEspecialidad.setId(objResult.getInt("id"));
-                objEspecialidad.setNombre(objResult.getString("name"));
+                objEspecialidad.setNombre(objResult.getString("nombre"));
                 objEspecialidad.setDescripcion(objResult.getString("descripcion"));
             }
 

@@ -86,7 +86,7 @@ public class MedicoController {
         String nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del nuevo medico: ",objMedico.getNombre());
         String apellidos = JOptionPane.showInputDialog(null,"Ingrese los apellidos del nuevo medico: ",objMedico.getApellidos());
 
-        Object[] optionsEspecialidad = Utils.listToArray(instanciaModeloMedico().findAll());
+        Object[] optionEspecialidad = Utils.listToArray(EspecialidadController.instanciarModelo().findAll());
 
         Especialidad objEspecialidad =(Especialidad) JOptionPane.showInputDialog(  //la opcion seleccionada es casteada y guardada como objeto
                 //especialidad
@@ -95,8 +95,8 @@ public class MedicoController {
                 "",                                 //no tiene titulo
                 JOptionPane.QUESTION_MESSAGE,       //ventana de pregunto
                 null,                               //no tiene ningun icono
-                optionsEspecialidad,                 //opciones
-                optionsEspecialidad[0]               //opcion por defecto
+                optionEspecialidad,                 //opciones
+                optionEspecialidad[0]               //opcion por defecto
         );
         instanciaModeloMedico().update(new Medico(nombre,apellidos,objEspecialidad.getId(),objEspecialidad));
     }

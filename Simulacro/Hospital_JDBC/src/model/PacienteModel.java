@@ -109,11 +109,6 @@ public class PacienteModel implements CRUD {
     }
 
     @Override
-    public Object findById(int id) {
-        return null;
-    }
-
-    @Override
     public List<Object> findAll() {
         //lista de paciente
         List<Object> listPaciente = new ArrayList<>();
@@ -147,5 +142,26 @@ public class PacienteModel implements CRUD {
         ConfigDB.closeConnection();
         //devolver lista de objetos
         return listPaciente;
+    }
+
+    public Paciente findByDoc(String doc){
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = "SELECT * FROM paciente WHERE documento_identidad=?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1,doc);
+            ResultSet objResult = objPrepare.executeQuery();
+            if (objResult.next()){
+                objPaciente = new Paciente();
+                objPaciente.setNombre(objResult.getString("nombre"));
+                objPaciente.setApellidos(objResult.getString("apellidos"));
+                objPaciente.setFecha_nacimiento(objResult.getString("fecha_nacimiento"));
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Error al encontrar el paciente \npor el documento de identidad: "+e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return objPaciente;
     }
 }

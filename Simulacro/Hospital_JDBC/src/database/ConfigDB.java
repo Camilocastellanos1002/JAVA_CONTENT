@@ -22,7 +22,7 @@ public class ConfigDB {
 
             //establecer conexion
             objConnection = (Connection) DriverManager.getConnection(url,user,password);
-            JOptionPane.showMessageDialog(null,"Conexion establecida correctamente");
+            System.out.println("Conexion establecida correctamente");
 
             //expesiones en caso de generar errores
         }catch (SQLException e){
@@ -41,7 +41,7 @@ public class ConfigDB {
            if (objConnection!=null){
                objConnection.close();
                objConnection=null;
-               JOptionPane.showMessageDialog(null,"Se cerro la conexion");
+               System.out.println("Conexion cerrada correctamente");
            }
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null,"Error: "+e.getMessage());

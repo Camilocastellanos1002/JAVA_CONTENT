@@ -116,11 +116,6 @@ public class MedicoModel implements CRUD {
     }
 
     @Override
-    public Object findById(int id) {
-        return null;
-    }
-
-    @Override
     public List<Object> findAll() {
         //1. lista de objetos
         List<Object>  listMedico = new ArrayList<>();
@@ -166,4 +161,5 @@ public class MedicoModel implements CRUD {
         //9 devolver lista de medicos
         return listMedico;
     }
+
 }

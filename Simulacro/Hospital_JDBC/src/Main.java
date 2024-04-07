@@ -2,6 +2,7 @@ import controller.CitaController;
 import controller.EspecialidadController;
 import controller.MedicoController;
 import controller.PacienteController;
+import entity.Paciente;
 
 import javax.swing.*;
 import java.text.ParseException;
@@ -18,9 +19,9 @@ public class Main {
             option = JOptionPane.showInputDialog("""
                     Menu Principal:
                     1.Menu Especialidades
-                    2.Menu Medico
-                    3.Menu Paciente
-                    4.Menu Cita             
+                    2.Menu Medicos
+                    3.Menu Pacientes
+                    4.Menu Citas
                     5.Salir
                     Seleccione una opcion:
                     """);
@@ -66,8 +67,7 @@ public class Main {
                     2.Insertar nuevo Medico
                     3.Actualizar Medico
                     4.Eliminar Medico
-                    5.Obtener Medico por especialidad
-                    6.Salir
+                    5.Salir
                     Seleccione una opcion: 
                     """);
                         switch (option2){
@@ -83,11 +83,8 @@ public class Main {
                             case "4":
                                 MedicoController.delete();
                             break;
-                            case "5":
-
-                            break;
                         }
-                    }while (!option2.equals("6"));
+                    }while (!option2.equals("5"));
                 break;
                 case "3":
                     String option3="";
@@ -116,7 +113,7 @@ public class Main {
                                 PacienteController.delete();
                             break;
                             case "5":
-
+                                PacienteController.getByDoc();
                             break;
                         }
                     }while (!option3.equals("6"));
@@ -130,8 +127,7 @@ public class Main {
                     2.Insertar nueva cita
                     3.Actualizar cita
                     4.Eliminar cita
-                    5.Obtener cita por fecha
-                    6.Salir
+                    5.Salir
                     Seleccione una opcion: 
                     """);
                         switch (option4){
@@ -142,16 +138,13 @@ public class Main {
                                 CitaController.create();
                             break;
                             case "3":
-
+                                CitaController.update();
                             break;
                             case "4":
-
-                            break;
-                            case "5":
-
+                                CitaController.delete();
                             break;
                         }
-                    }while (!option4.equals("6"));
+                    }while (!option4.equals("5"));
                 break;
 
             }

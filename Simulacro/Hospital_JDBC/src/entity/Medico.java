@@ -67,6 +67,6 @@ public class Medico {
         return "Medico \n" +
                 ", nombre: '" + nombre + '\'' +
                 ", apellidos: '" + apellidos + '\'' +
-                ", especialidad: " + objEspecialidad.getDescripcion();
+                ", especialidad: " + objEspecialidad.getNombre();
     }
 }
